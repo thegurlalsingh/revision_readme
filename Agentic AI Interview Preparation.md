@@ -480,9 +480,36 @@ Question → Agent reasons → Retrieve → Observe → Sufficient? ──No─�
 Find company → find its acquirer → find acquirer's CEO → find CEO's recent statement
 ```
 
-**Self-RAG:** the model reflects on whether retrieved evidence (or its own draft answer) is actually sufficient, and retrieves again rather than confidently answering on weak evidence.
+**Self-RAG:** the model reflects on whether retrieved evidence (or its own draft answer) is actually sufficient, and retrieves again rather than confidently answering on weak evidence. It was designed specifically to improve retrieval + generation quality. The whole system is optimized around retrieval quality and grounded generation.
+
+Self-RAG can do:
+```
+✓ Decide whether retrieval is needed
+✓ Evaluate retrieved information
+✓ Evaluate grounding
+✓ Revise generation
+✓ Potentially retrieve again
+```
+
+But Self-RAG does not inherently mean:
+
+```
+✗ Planning arbitrary workflows
+✗ Calling multiple unrelated tools
+✗ SQL queries
+✗ API calls
+✗ Calculator
+✗ Sending emails
+✗ Executing actions
+✗ Multi-agent collaboration
+```
+
+Those are agentic capabilities. Its focus is autonomous problem solving.
+
+Agentic RAG is a broader orchestration pattern, while Self-RAG is a specific approach focused on adaptive retrieval and self-critique. It can incorporate Self-RAG techniques, but Agentic RAG doesn't inherently require them.
 
 ⚠️ **Interview Trap:** "Agentic RAG = multiple retrievals" is incomplete. The defining feature is that the **model controls the retrieval strategy** (deciding whether/what/when to retrieve), not merely that retrieval happens more than once.
+
 
 ---
 
