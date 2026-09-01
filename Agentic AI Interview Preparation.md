@@ -612,7 +612,7 @@ Two well-known ways people categorize the same underlying ideas:
 | **Ignoring observations** | Agent receives correct data but acts as if it didn't | Structured tool outputs; evaluation/reflection catches this |
 | **Privilege escalation via tools** | Legitimate tools *combined* grant unintended capability | Least privilege, per-resource authorization, sandboxing |
 
-## **Example of Privilege Escalation Through Tool Composition** 
+### **Example of Privilege Escalation Through Tool Composition** 
 
 Suppose you build a coding agent with the following tools:
 ```text
