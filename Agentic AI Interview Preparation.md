@@ -612,6 +612,67 @@ Two well-known ways people categorize the same underlying ideas:
 | **Ignoring observations** | Agent receives correct data but acts as if it didn't | Structured tool outputs; evaluation/reflection catches this |
 | **Privilege escalation via tools** | Legitimate tools *combined* grant unintended capability | Least privilege, per-resource authorization, sandboxing |
 
+> Example of Privilege Escalation Through Tool Composition
+
+Suppose you build a coding agent with the following tools:
+```text
+read_file()
+write_file()
+run_command()
+git_commit()
+```
+Each tool is legitimate on its own. However, the agent could potentially combine these tools to gain access to capabilities it was never intended to have: 
+```text
+read_file("/app/.env")
+        ↓
+get database credentials
+        ↓
+write_file(...)
+        ↓
+modify application code
+        ↓
+run_command("...")
+        ↓
+access production database
+```
+The individual permissions might look harmless: read files  ✓     write files  ✓     run commands  ✓
+
+But when combined:
+
+read secrets
+   +
+execute commands
+   +
+network access
+        ↓
+potential production access
+
+Instead of giving the agent unrestricted access:
+```text
+run_any_command()
+read_any_file()
+access_any_database()
+```
+
+you restrict each capability to only what is required:
+```text
+read_file    → /project/src/**
+write_file   → /project/src/**
+run_command  → only approved commands
+database     → development database only
+```
+
+Now, even if the agent combines multiple tools:
+```text
+read_file
+   +
+write_file
+   +
+run_command
+```
+the resulting capability is still limited.
+
+
 > **The core distinction:** a normal LLM usually fails at *generation*; an agent can fail at *any point* in a multi-step trajectory (planning, tool selection, arguments, interpreting observations, recovery, termination, authorization) — and these errors **compound**. This is why agents need stronger validation, observability, and evaluation than single-shot LLM calls.
 
 ### Goal Misalignment / Specification Gaming
