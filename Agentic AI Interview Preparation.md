@@ -602,7 +602,7 @@ Two well-known ways people categorize the same underlying ideas:
 |---|---|---|
 | **Infinite loops** | Agent keeps acting without progress | Max iterations, token budget, detect repeated identical tool calls |
 | **Tool misuse** | Wrong tool, wrong arguments, unnecessary calls | Clear schemas, descriptions, examples, input validation |
-| **Goal drift** | Agent optimizes an easier proxy and forgets original constraints | Keep goal explicit in state; validate final result against original constraints |
+| **Goal drift** | The agent is given a real goal with several constraints, but instead of solving the real goal, it finds an easier thing to optimize that looks like success. | Keep goal explicit in state; validate final result against original constraints |
 | **Compounding errors** | An early small mistake cascades through later steps | Validation checkpoints between steps, verify critical intermediate results |
 | **Prompt injection** | Malicious instructions from user or *untrusted content* (webpages, docs, tool output) hijack behavior | Treat external content as untrusted data, least privilege, human approval |
 | **High cost/latency** | Too many LLM/tool calls | Budgets, caching, model routing, early stopping |
